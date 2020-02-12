@@ -33,41 +33,46 @@ def banner():
           'Exemplo: python3 %s -c abcde1234 -m 2 -x 5 -o wordlist.txt' % argv[0])
 
 
-try:
-    minimo = 0
-    maximo = 0
-    caracteres = None
-    file = None
-    optList, args = getopt(argv[1:], 'c: m: x: o:')
+def main():
+    try:
+        minimo = 0
+        maximo = 0
+        caracteres = None
+        file = None
+        optList, args = getopt(argv[1:], 'c: m: x: o:')
 
-    for opt, i in optList:
-        if opt == '-c':
-            caracteres = i
-        if opt == '-m':
-            minimo = i
-        if opt == '-x':
-            maximo = i
-        if opt == '-o':
-            file = i
+        for opt, i in optList:
+            if opt == '-c':
+                caracteres = i
+            if opt == '-m':
+                minimo = i
+            if opt == '-x':
+                maximo = i
+            if opt == '-o':
+                file = i
 
-    if int(minimo) > int(maximo) or caracteres is None or file is None:
-        banner()
-        exit()
+        if int(minimo) > int(maximo) or caracteres is None or file is None:
+            banner()
+            exit()
 
-    with open(file, 'w') as arquivo:
-        caracteres = list(str(caracteres))
+        with open(file, 'w') as arquivo:
+            caracteres = list(str(caracteres))
 
-        os.system('clear')
-        print(G + '[*]' + C + ' Generating wordlist...')
+            os.system('clear')
+            print(G + '[*]' + C + ' Generating wordlist...')
 
-        for i in range(int(minimo), int(maximo)+1):
-            for j in product(caracteres, repeat=i):
-                word = ''.join(j)
-                print(W + '%s' % word)
-                arquivo.write('%s\n' % word)
+            for i in range(int(minimo), int(maximo)+1):
+                for j in product(caracteres, repeat=i):
+                    word = ''.join(j)
+                    print(W + '%s' % word)
+                    arquivo.write('%s\n' % word)
 
-        print(G + '[*]' + C + ' Generated wordlist!')
-        print(G + '[*]' + C + ' File: %s' % (file) + W)
+            print(G + '[*]' + C + ' Generated wordlist!')
+            print(G + '[*]' + C + ' File: %s' % (file) + W)
 
-except KeyboardInterrupt:
-    print('\n' + R + '[-]' + C + ' Keyboard interrupt.' + W)
+    except KeyboardInterrupt:
+        print('\n' + R + '[-]' + C + ' Keyboard interrupt.' + W)
+
+
+if __name__ == "__main__":
+    main()
