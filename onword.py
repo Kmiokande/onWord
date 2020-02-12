@@ -50,25 +50,24 @@ try:
         if opt == '-o':
             file = i
 
-    if (int(minimo) > int(maximo)) or (caracteres is None) or (file is None):
+    if int(minimo) > int(maximo) or caracteres is None or file is None:
         banner()
         exit()
 
-    arquivo = open(file, 'w')
-    caracteres = list(str(caracteres))
+    with open(file, 'w') as arquivo:
+        caracteres = list(str(caracteres))
 
-    os.system('clear')
-    print(G + '[*]' + C + ' Generating wordlist...')
+        os.system('clear')
+        print(G + '[*]' + C + ' Generating wordlist...')
 
-    for i in range(int(minimo), int(maximo)+1):
-        for j in product(caracteres, repeat=i):
-            word = ''.join(j)
-            print(W + '%s' % word)
-            arquivo.write('%s\n' % word)
+        for i in range(int(minimo), int(maximo)+1):
+            for j in product(caracteres, repeat=i):
+                word = ''.join(j)
+                print(W + '%s' % word)
+                arquivo.write('%s\n' % word)
 
-    print(G + '[*]' + C + ' Generated wordlist!')
-    print(G + '[*]' + C + ' File: %s' % (file) + W)
-    arquivo.close()
+        print(G + '[*]' + C + ' Generated wordlist!')
+        print(G + '[*]' + C + ' File: %s' % (file) + W)
 
 except KeyboardInterrupt:
     print('\n' + R + '[-]' + C + ' Keyboard interrupt.' + W)
